@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Выбор даты и времени</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -66,8 +72,8 @@
             <div class="calendar-header">
               <h2 class="calendar-month">Октябрь 2026</h2>
               <div class="calendar-nav">
-                <button class="nav-btn">&lt;</button>
-                <button class="nav-btn">&gt;</button>
+                <button class="nav-btn" type="button">&lt;</button>
+                <button class="nav-btn" type="button">&gt;</button>
               </div>
             </div>
 
@@ -82,37 +88,45 @@
               <div class="weekday">Вс</div>
 
               <!-- ЧИСЛА -->
-              <div class="day-cell disable">29</div>
-              <div class="day-cell disable">30</div>
-              <div class="day-cell disable">1</div>
-              <div class="day-cell">2</div>
-              <div class="day-cell">3</div>
-              <div class="day-cell">4</div>
-              <div class="day-cell">5</div>
-              
-              <div class="day-cell">6</div>
-              <div class="day-cell">7</div>
-              <div class="day-cell">8</div>
-              <div class="day-cell">9</div>
-              <div class="day-cell active">10</div>
-              <div class="day-cell">11</div>
-              <div class="day-cell">12</div>
-              
-              <div class="day-cell">13</div>
-              <div class="day-cell">14</div>
-              <div class="day-cell">15</div>
-              <div class="day-cell">16</div>
-              <div class="day-cell">17</div>
-              <div class="day-cell">18</div>
-              <div class="day-cell">19</div>
-              
-              <div class="day-cell">20</div>
-              <div class="day-cell">21</div>
-              <div class="day-cell">22</div>
-              <div class="day-cell">23</div>
-              <div class="day-cell">24</div>
-              <div class="day-cell">25</div>
-              <div class="day-cell">26</div>
+              <button type="button" class="day-cell disable" disabled>28</button>
+              <button type="button" class="day-cell disable" disabled>29</button>
+              <button type="button" class="day-cell disable" disabled>30</button>
+              <button type="button" class="day-cell">1</button>
+              <button type="button" class="day-cell">2</button>
+              <button type="button" class="day-cell">3</button>
+              <button type="button" class="day-cell">4</button>
+
+              <button type="button" class="day-cell">5</button>
+              <button type="button" class="day-cell">6</button>
+              <button type="button" class="day-cell">7</button>
+              <button type="button" class="day-cell">8</button>
+              <button type="button" class="day-cell">9</button>
+              <button type="button" class="day-cell active">10</button>
+              <button type="button" class="day-cell">11</button>
+
+              <button type="button" class="day-cell">12</button>
+              <button type="button" class="day-cell">13</button>
+              <button type="button" class="day-cell">14</button>
+              <button type="button" class="day-cell">15</button>
+              <button type="button" class="day-cell">16</button>
+              <button type="button" class="day-cell">17</button>
+              <button type="button" class="day-cell">18</button>
+
+              <button type="button" class="day-cell">19</button>
+              <button type="button" class="day-cell">20</button>
+              <button type="button" class="day-cell">21</button>
+              <button type="button" class="day-cell">22</button>
+              <button type="button" class="day-cell">23</button>
+              <button type="button" class="day-cell">24</button>
+              <button type="button" class="day-cell">25</button>
+
+              <button type="button" class="day-cell">26</button>
+              <button type="button" class="day-cell">27</button>
+              <button type="button" class="day-cell">28</button>
+              <button type="button" class="day-cell">29</button>
+              <button type="button" class="day-cell">30</button>
+              <button type="button" class="day-cell">31</button>
+              <button type="button" class="day-cell disable" disabled>1</button>
             </div>
           </section>
 
@@ -120,14 +134,14 @@
           <section class="time-section">
             <h2 class="time-title">Время приема</h2>
             <div class="time-grid">
-              <button class="time-btn">09:00</button>
-              <button class="time-btn disabled">09:30</button>
-              <button class="time-btn">10:00</button>
-              <button class="time-btn disabled">10:30</button>
-              <button class="time-btn active">11:00</button>
-              <button class="time-btn">11:30</button>
-              <button class="time-btn">12:00</button>
-              <button class="time-btn">12:30</button>
+              <button class="time-btn" type="button">09:00</button>
+              <button class="time-btn disabled" type="button" disabled>09:30</button>
+              <button class="time-btn" type="button">10:00</button>
+              <button class="time-btn disabled" type="button" disabled>10:30</button>
+              <button class="time-btn active" type="button">11:00</button>
+              <button class="time-btn" type="button">11:30</button>
+              <button class="time-btn" type="button">12:00</button>
+              <button class="time-btn" type="button">12:30</button>
             </div>
           </section>
         </div>

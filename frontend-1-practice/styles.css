@@ -250,6 +250,7 @@ body {
   background-color: #EBEBEB;
   transition: all 0.2s;
   margin: 0 auto;
+  font-family: inherit;
 }
 
 .day-cell:hover {
@@ -258,12 +259,17 @@ body {
   font-weight: bold;
 }
 
-.day-cell.disable {
+.day-cell.disable,
+.day-cell:disabled {
   color: #7F7F7F;
   background-color: #ffffff;
+  cursor: not-allowed;
 }
 
-.day-cell.disable:hover {
+.day-cell.disable:hover,
+.day-cell:disabled:hover {
+  background-color: #ffffff;
+  color: #7F7F7F;
   font-weight: normal;
   cursor: not-allowed;
 }
@@ -314,14 +320,18 @@ body {
   font-weight: bold;
 }
 
-.time-btn.disabled {
+.time-btn.disabled,
+.time-btn:disabled {
   background-color: #EBEBEB;
   color: #7F7F7F;
   border: 1px solid #00000024;
   cursor: not-allowed;
 }
 
-.time-btn.disabled:hover {
+.time-btn.disabled:hover,
+.time-btn:disabled:hover {
+  background-color: #EBEBEB;
+  color: #7F7F7F;
   font-weight: normal;
 }
 
@@ -441,4 +451,146 @@ body {
 
 .privacy-link:hover {
   color: #a0a0a0;
+}
+
+/* Планшеты и небольшие ноутбуки */
+@media (max-width: 1024px) {
+  .booking-container {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .calendar-section,
+  .time-section {
+    width: 100%;
+  }
+
+  .time-section {
+    max-width: 100%;
+  }
+
+  .main-content {
+    padding: 32px 24px;
+  }
+
+  .booking-footer {
+    padding: 24px;
+  }
+}
+
+/* Планшеты вертикально и крупные телефоны */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .steps-container {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .step {
+    gap: 8px;
+  }
+
+  .step-line {
+    flex: 1;
+    min-width: 16px;
+  }
+
+  .main-content {
+    padding: 24px 16px;
+  }
+
+  .page-title {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  .calendar-section,
+  .time-section {
+    padding: 20px;
+  }
+
+  .calendar-grid {
+    gap: 8px;
+  }
+
+  .day-cell {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+  }
+
+  .time-grid {
+    gap: 12px;
+  }
+
+  .booking-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+
+  .book-btn {
+    width: 100%;
+  }
+
+  .footer {
+    padding: 40px 20px 20px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 32px;
+    padding-bottom: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* Телефоны */
+@media (max-width: 480px) {
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .day-cell {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .weekday {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .time-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-info {
+    font-size: 14px;
+  }
+
+  .logo {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 }
