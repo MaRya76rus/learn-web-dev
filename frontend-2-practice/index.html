@@ -4,11 +4,182 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Выбор даты и времени</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="page">
-      <!-- Перенесите вашу верстку. Удалите статичные данные. Подключите скрипт -->
+      <!-- HEADER -->
+      <header class="header">
+        <div class="logo">LUME</div>
+        <nav class="nav-links">
+          <div class="nav-item"><a href="#">УСЛУГИ</a></div>
+          <div class="nav-item"><a href="#">ГАЛЕРЕЯ</a></div>
+          <div class="nav-item"><a href="#">КОМАНДА</a></div>
+          <div class="nav-item"><a href="#">ОТЗЫВЫ</a></div>
+          <div class="nav-item"><a href="#">КОНТАКТЫ</a></div>
+        </nav>
+      </header>
+
+      <!-- MAINER -->
+      <!-- ШАГИ -->
+      <div class="steps-container">
+
+        <div class="step">
+          <div class="circle last"><span>1</span></div>
+          <span class="step-text">ВЫБРАТЬ МАСТЕРА</span>
+          <div class="step-line"></div>
+        </div>
+        
+        <div class="step">
+          <div class="circle last"><span>2</span></div>
+          <span class="step-text">ВЫБРАТЬ УСЛУГУ</span>
+          <div class="step-line"></div>
+        </div>
+        
+        <div class="step">
+          <div class="circle"><span>3</span></div>
+          <span class="step-text">ВЫБРАТЬ ДАТУ</span>
+          <div class="step-line"></div>
+        </div>
+        
+        <div class="step">
+          <div class="circle empty"><span>4</span></div>
+          <span class="step-text-light">ВВЕСТИ КОНТАКТЫ</span>
+          <div class="step-line"></div>
+        </div>
+        
+        <div class="step">
+          <div class="circle empty"><span>5</span></div>
+          <span class="step-text-light">ПОДТВЕРДИТЬ ЗАПИСЬ</span>
+        </div>
+      
+      </div>
+
+      <!-- ОСНОВНОЙ КОНТЕНТ -->
+      <main class="main-content">
+        <a href="#" class="back-link">← НАЗАД К СПИСКУ УСЛУГ</a>
+        <h1 class="page-title">Выберите дату</h1>
+
+        <div class="booking-container">
+          <!-- КАЛЕНДАРЬ -->
+          <section class="calendar-section">
+            <div class="calendar-header">
+              <h2 class="calendar-month">Октябрь 2026</h2>
+              <div class="calendar-nav">
+                <button class="nav-btn" type="button">&lt;</button>
+                <button class="nav-btn" type="button">&gt;</button>
+              </div>
+            </div>
+
+            <div class="calendar-grid">
+              <!-- ДНИ НЕДЕЛИ -->
+              <div class="weekday">Пн</div>
+              <div class="weekday">Вт</div>
+              <div class="weekday">Ср</div>
+              <div class="weekday">чт</div>
+              <div class="weekday">Пт</div>
+              <div class="weekday">Сб</div>
+              <div class="weekday">Вс</div>
+
+              <!-- ЧИСЛА -->
+              <button type="button" class="day-cell disable" disabled>28</button>
+              <button type="button" class="day-cell disable" disabled>29</button>
+              <button type="button" class="day-cell disable" disabled>30</button>
+              <button type="button" class="day-cell">1</button>
+              <button type="button" class="day-cell">2</button>
+              <button type="button" class="day-cell">3</button>
+              <button type="button" class="day-cell">4</button>
+
+              <button type="button" class="day-cell">5</button>
+              <button type="button" class="day-cell">6</button>
+              <button type="button" class="day-cell">7</button>
+              <button type="button" class="day-cell">8</button>
+              <button type="button" class="day-cell">9</button>
+              <button type="button" class="day-cell active">10</button>
+              <button type="button" class="day-cell">11</button>
+
+              <button type="button" class="day-cell">12</button>
+              <button type="button" class="day-cell">13</button>
+              <button type="button" class="day-cell">14</button>
+              <button type="button" class="day-cell">15</button>
+              <button type="button" class="day-cell">16</button>
+              <button type="button" class="day-cell">17</button>
+              <button type="button" class="day-cell">18</button>
+
+              <button type="button" class="day-cell">19</button>
+              <button type="button" class="day-cell">20</button>
+              <button type="button" class="day-cell">21</button>
+              <button type="button" class="day-cell">22</button>
+              <button type="button" class="day-cell">23</button>
+              <button type="button" class="day-cell">24</button>
+              <button type="button" class="day-cell">25</button>
+
+              <button type="button" class="day-cell">26</button>
+              <button type="button" class="day-cell">27</button>
+              <button type="button" class="day-cell">28</button>
+              <button type="button" class="day-cell">29</button>
+              <button type="button" class="day-cell">30</button>
+              <button type="button" class="day-cell">31</button>
+              <button type="button" class="day-cell disable" disabled>1</button>
+            </div>
+          </section>
+
+          <!-- ВРЕМЯ ПРИЕМА -->
+          <section class="time-section">
+            <h2 class="time-title">Время приема</h2>
+            <div class="time-grid">
+              <button class="time-btn" type="button">09:00</button>
+              <button class="time-btn disabled" type="button" disabled>09:30</button>
+              <button class="time-btn" type="button">10:00</button>
+              <button class="time-btn disabled" type="button" disabled>10:30</button>
+              <button class="time-btn active" type="button">11:00</button>
+              <button class="time-btn" type="button">11:30</button>
+              <button class="time-btn" type="button">12:00</button>
+              <button class="time-btn" type="button">12:30</button>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- ПАНЕЛЬ БРОНИРОВАНИЯ -->
+      <div class="booking-footer">
+        <div class="selected-info">10 октября 2026 - 11:00</div>
+        <button class="book-btn">ЗАБРОНИРОВАТЬ</button>
+      </div>
+
+      <!-- ПОДВАЛ -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-col">
+            <div class="logo">LUME</div>
+            <p class="footer-desc">
+              Барбершоп с вниманием к деталям<br />
+              Стрижки, уход и уверенный стиль
+            </p>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-title">КОНТАКТЫ</h3>
+            <p class="footer-text">📍 ул. Большая Дмитровка, 12</p>
+            <p class="footer-text">📞 +7 999 123-45-67</p>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-title">РЕЖИМ РАБОТЫ</h3>
+            <p class="footer-text">Пн-Пт 10:00-22:00</p>
+            <p class="footer-text">Сб-Вс 10:00-21:00</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="copyright">© 2026 LUME. ВСЕ ПРАВА ЗАЩИЩЕНЫ</p>
+          <a href="#" class="privacy-link">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+        </div>
+      </footer>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
