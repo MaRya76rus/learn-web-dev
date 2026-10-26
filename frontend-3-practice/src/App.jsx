@@ -1,57 +1,88 @@
-// App — корневой компонент приложения.
-//
-// ЗАДАНИЕ
-// --------
-// Перенесите свою страницу выбора даты и времени из нативного JS
-// на React. У вас уже есть:
-//   - готовая вёрстка (HTML);
-//   - готовые стили (CSS);
-//   - рабочий код на нативном JS (валидация дат, рендер календаря,
-//     обработчики кликов, выбор слота).
-//
-// Теперь нужно то же самое сделать в React.
-//
-// ЧТО НУЖНО СДЕЛАТЬ
-// ------------------
-// 1. Разбить страницу на компоненты. Как именно — решайте сами.
-//    Обычно выделяют: шапку, подвал, календарь, сетку слотов,
-//    нижнюю панель.
-//
-// 2. Перенести вёрстку из HTML в JSX. Стили оставить как есть,
-//    просто положить их в тот же проект (например, в src/styles/
-//    или рядом с компонентами).
-//
-// 3. Заменить нативное состояние (переменные + прямые манипуляции
-//    с DOM) на useState. Какие именно данные должны жить в состоянии —
-//    подумайте сами. Скорее всего: текущий месяц, выбранный день,
-//    выбранное время, массив слотов.
-//
-// 4. Рендер календаря и слотов делать через JSX и .map(),
-//    без innerHTML и querySelector.
-//
-// 5. Обработчики кликов — через onClick прямо в JSX,
-//    без addEventListener.
-//
-// 6. Функции для работы с датами, которые вы уже написали
-//    на нативном JS (построение сетки календаря, сравнение дат,
-//    проверка «не раньше сегодня»), можно переиспользовать.
-//    Они чистые — не зависят от React. Создайте файл
-//    src/utils/date.js и перенесите их туда.
-//
-//
-// ПОДСКАЗКА
-// ---------
-// Если что-то не работает или непонятно, как перевести нативный
-// код на React — вернитесь к лекции. Там разбирались все
-// основные приёмы: состояние, пропсы, рендер списков, колбэки.
-//
-// Ниже — пустой каркас. Здесь можно начать писать.
+import { useState } from "react";
+
+import Header from "./components/Header";
+import StepsBar from "./components/StepsBar";
+import Calendar from "./components/Calendar";
+import TimeSlots from "./components/TimeSlots";
+import BookingPanel from "./components/BookingPanel";
+import Footer from "./components/Footer";
+
+import { TODAY, formatDateLong } from "./utils/date";
 
 function App() {
+  const [year, setYear] = useState(TODAY.year);
+  const [month, setMonth] = useState(TODAY.month);
+  const [selectedDate, setSelectedDate] = useState({ ...TODAY });
+  const [selectedTime, setSelectedTime] = useState(null);
+
+  function onPrevMonth() {
+    if (month === 0) {
+      setMonth(11);
+      setYear(year - 1);
+    } else {
+      setMonth(month - 1);
+    }
+  }
+
+  function onNextMonth() {
+    if (month === 11) {
+      setMonth(0);
+      setYear(year + 1);
+    } else {
+      setMonth(month + 1);
+    }
+  }
+
+  function onDayClick(day) {
+    setSelectedDate({ year, month, day });
+    setSelectedTime(null);
+  }
+
+  function onTimeClick(time) {
+    setSelectedTime(time);
+  }
+
+  function onBook() {
+    if (!selectedDate || !selectedTime) {
+      alert("Сначала выберите дату и время");
+      return;
+    }
+    alert(`Запись подтверждена:\n${formatDateLong(selectedDate)} • ${selectedTime}`);
+  }
+
   return (
-    <div>
-      {/* Начните отсюда. Например, разметьте .page, добавьте шапку,
-            основную область, подвал. */}
+    <div className="page">
+      <Header />
+      <StepsBar />
+
+      <main className="main-content">
+        <a href="#" className="back-link">← НАЗАД К СПИСКУ УСЛУГ</a>
+        <h1 className="page-title">Выберите дату</h1>
+
+        <div className="booking-container">
+          <Calendar
+            year={year}
+            month={month}
+            selectedDate={selectedDate}
+            onPrevMonth={onPrevMonth}
+            onNextMonth={onNextMonth}
+            onDayClick={onDayClick}
+          />
+          <TimeSlots
+            selectedDate={selectedDate}
+            selectedTime={selectedTime}
+            onTimeClick={onTimeClick}
+          />
+        </div>
+      </main>
+
+      <BookingPanel
+        selectedDate={selectedDate}
+        selectedTime={selectedTime}
+        onBook={onBook}
+      />
+
+      <Footer />
     </div>
   );
 }
