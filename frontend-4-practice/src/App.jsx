@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { fetchToday, fetchSlots } from "./api";
-import { isSameDate } from "./utils/date";
 
 import Header from "./components/Header";
 import StepsBar from "./components/StepsBar";
@@ -10,7 +9,6 @@ import BookingPanel from "./components/BookingPanel";
 import Footer from "./components/Footer";
 
 function App() {
-  // Состояния данных
   const [today, setToday] = useState(null);
   const [year, setYear] = useState(null);
   const [month, setMonth] = useState(null);
@@ -18,26 +16,23 @@ function App() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [slots, setSlots] = useState([]);
 
-  // Состояния загрузки и ошибок для календаря
   const [loadingToday, setLoadingToday] = useState(true);
   const [errorToday, setErrorToday] = useState(null);
 
-  // Состояния загрузки и ошибок для слотов
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [errorSlots, setErrorSlots] = useState(null);
 
-  // 1. Загружаем "сегодня" при монтировании
   useEffect(() => {
     async function loadToday() {
       try {
         setLoadingToday(true);
         setErrorToday(null);
         const data = await fetchToday();
-        
+
         setToday(data);
         setYear(data.year);
         setMonth(data.month);
-        setSelectedDate({ ...data }); // Выбираем сегодняшний день по умолчанию
+        setSelectedDate({ ...data });
       } catch (err) {
         setErrorToday(err.message || "Не удалось загрузить данные");
       } finally {
@@ -47,63 +42,106 @@ function App() {
     loadToday();
   }, []);
 
-  // 2. Загружаем слоты при смене выбранной даты
   useEffect(() => {
-    if (!selectedDate) return; // Ждем, пока загрузится "сегодня"
+    if (!selectedDate) return;
+
+    // Флаг актуальности: выставляется в cleanup, чтобы устаревший
+    // ответ не перезаписал данные нового запроса.
+    let ignore = false;
 
     async function loadSlots() {
       try {
         setLoadingSlots(true);
         setErrorSlots(null);
-        
+
         const data = await fetchSlots(selectedDate);
 
-        // ЗАЩИТА ОТ ГОНКИ ЗАПРОСОВ (из ТЗ)
-        // Если ответ пришел не для той даты, которую пользователь выбрал сейчас — игнорируем
-        if (isSameDate(data.date, selectedDate)) {
+        if (!ignore) {
           setSlots(data.slots);
         }
       } catch (err) {
-        // Проверяем, актуальна ли еще дата для этой ошибки
-        if (isSameDate(selectedDate, selectedDate)) { 
-            setErrorSlots(err.message || "Ошибка загрузки слотов");
+        if (!ignore) {
+          setErrorSlots(err.message || "Ошибка загрузки слотов");
         }
       } finally {
-        setLoadingSlots(false);
+        if (!ignore) {
+          setLoadingSlots(false);
+        }
       }
     }
+
     loadSlots();
+
+    return () => {
+      ignore = true;
+    };
   }, [selectedDate]);
 
-  // Обработчики
-  function onPrevMonth() {
-    if (month === 0) {
-      setMonth(11);
-      setYear((prev) => prev - 1);
-    } else {
-      setMonth((prev) => prev - 1);
+  function getDefaultDay(targetYear, targetMonth) {
+    // При возврате в месяц «сегодня» выбираем сегодняшний день,
+    // иначе — первое число (оно гарантированно не в прошлом).
+    if (today && targetYear === today.year && targetMonth === today.month) {
+      return today.day;
     }
+    return 1;
+  }
+
+  function onPrevMonth() {
+    if (!today) return;
+
+    // Нельзя уйти в месяц раньше месяца «сегодня» с сервера
+    if (year < today.year || (year === today.year && month <= today.month)) {
+      return;
+    }
+
+    let newMonth, newYear;
+    if (month === 0) {
+      newMonth = 11;
+      newYear = year - 1;
+    } else {
+      newMonth = month - 1;
+      newYear = year;
+    }
+
+    setMonth(newMonth);
+    setYear(newYear);
+    setSelectedDate({
+      year: newYear,
+      month: newMonth,
+      day: getDefaultDay(newYear, newMonth),
+    });
+    setSelectedTime(null);
   }
 
   function onNextMonth() {
+    let newMonth, newYear;
     if (month === 11) {
-      setMonth(0);
-      setYear((prev) => prev + 1);
+      newMonth = 0;
+      newYear = year + 1;
     } else {
-      setMonth((prev) => prev + 1);
+      newMonth = month + 1;
+      newYear = year;
     }
+
+    setMonth(newMonth);
+    setYear(newYear);
+    setSelectedDate({
+      year: newYear,
+      month: newMonth,
+      day: getDefaultDay(newYear, newMonth),
+    });
+    setSelectedTime(null);
   }
 
   function onDayClick(day) {
     setSelectedDate({ year, month, day });
-    setSelectedTime(null); // Сбрасываем время при смене дня
+    setSelectedTime(null);
   }
 
   function onTimeClick(time) {
     setSelectedTime(time);
   }
 
-  // Экраны загрузки и ошибки для всего приложения
   if (loadingToday) {
     return <div className="page center-msg">Загрузка...</div>;
   }
